@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="pt-br" data-bs-theme="auto">
+  <head>
+	  <script src="./Bootstrap/color-modes.js"></script>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <title>Auto-Distro App</title>
+
+	  <meta name="title" content="Auto-Distro App" />
+	  <meta name="description" content="Distribua itens em prateleiras de maneira rápida e eficaz." />
+
+	  <!-- Open Graph / Facebook -->
+	  <meta property="og:type" content="website" />
+	  <meta property="og:url" content="https://lucaspicinini.github.io/auto-distro/" />
+	  <meta property="og:title" content="Auto-Distro App" />
+	  <meta property="og:description" content="Distribua itens em prateleiras de maneira rápida e eficaz." />
+	  <meta property="og:image" content="https://raw.githubusercontent.com/lucaspicinini/decodificador/main/assets/shot01.png" />
+
+	  <!-- Twitter -->
+	  <meta property="twitter:card" content="summary_large_image" />
+	  <meta property="twitter:url" content="https://lucaspicinini.github.io/auto-distro/" />
+	  <meta property="twitter:title" content="Auto-Distro App" />
+	  <meta property="twitter:description" content="Distribua itens em prateleiras de maneira rápida e eficaz." />
+	  <meta property="twitter:image" content="https://raw.githubusercontent.com/lucaspicinini/decodificador/main/assets/shot01.png" />
+
+	  <link href="./Bootstrap/bootstrap.min.css" rel="stylesheet">
+	  <link rel="shortcut icon" href="./Assets/bookshelf.svg" type="image/x-icon">
+
+      <!-- dark toogle button -->
+	  <style>
+	  .bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+			font-size: 3.5rem;
+			}
+		}
+
+		.b-example-divider {
+			width: 100%;
+			height: 3rem;
+			background-color: rgba(0, 0, 0, .1);
+			border: solid rgba(0, 0, 0, .15);
+			border-width: 1px 0;
+			box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+		}
+
+		.b-example-vr {
+			flex-shrink: 0;
+			width: 1.5rem;
+			height: 100vh;
+		}
+
+		.bi {
+			vertical-align: -.125em;
+			fill: currentColor;
+		}
+
+		.nav-scroller {
+			position: relative;
+			z-index: 2;
+			height: 2.75rem;
+			overflow-y: hidden;
+		}
+
+		.nav-scroller .nav {
+			display: flex;
+			flex-wrap: nowrap;
+			padding-bottom: 1rem;
+			margin-top: -1px;
+			overflow-x: auto;
+			text-align: center;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		.btn-bd-primary {
+			--bd-violet-bg: #0d6efd;
+			--bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+			--bs-btn-font-weight: 600;
+			--bs-btn-color: var(--bs-white);
+			--bs-btn-bg: var(--bd-violet-bg);
+			--bs-btn-border-color: var(--bd-violet-bg);
+			--bs-btn-hover-color: var(--bs-white);
+			--bs-btn-hover-bg: #0b5ed7;
+			--bs-btn-hover-border-color: #0b5ed7;
+			--bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+			--bs-btn-active-color: var(--bs-btn-hover-color);
+			--bs-btn-active-bg: #0a58ca;
+			--bs-btn-active-border-color: #0a58ca;
+		}
+
+		.bd-mode-toggle {
+			z-index: 1500;
+		}
+
+		.bd-mode-toggle .dropdown-menu .active .bi {
+			display: block !important;
+		}
+	  </style>
+      <!-- dark toogle button End -->
+  </head>
+
+  <body>
+	<!-- delete items confirm modal -->
+	<div class="modal fade" id="deleteItemsModal" tabindex="-1" aria-labelledby="deleteItemsModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="deleteItemsModalLabel"><strong>Atenção!</strong></h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Este item será removido da lista! Deseja continuar?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="deleteItemConfirmButton">Continuar</button>
+				</div>
+			</div>
+		</div>
+  </div>
+	<!-- end -->
+
+	<!-- clear items form confirm modal -->
+	<div class="modal fade" id="clearItemsFormModal" tabindex="-1" aria-labelledby="clearItemsFormModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="clearItemsFormModalLabel"><strong>Atenção!</strong></h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Os dados do formulários serão apagados! Deseja continuar?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="clearItemsFormConfirmButton">Continuar</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	<!-- end -->
+
+	<!-- reset stock confirm modal -->
+	<div class="modal fade" id="resetStockModal" tabindex="-1" aria-labelledby="resetStockModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="resetStockModalLabel"><strong>Atenção!</strong></h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					O modelo de estoque definido será resetado! Deseja continuar?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="resetStockConfirmButton">Continuar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end -->
+
+	<!-- dark toogle and icons -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+		<symbol id="check2" viewBox="0 0 16 16">
+			<path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+		</symbol>
+		<symbol id="circle-half" viewBox="0 0 16 16">
+			<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+		</symbol>
+		<symbol id="moon-stars-fill" viewBox="0 0 16 16">
+			<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+			<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+		</symbol>
+		<symbol id="sun-fill" viewBox="0 0 16 16">
+			<path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+		</symbol>
+	</svg>
+
+	<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+	<button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+			id="bd-theme"
+			type="button"
+			aria-expanded="false"
+			data-bs-toggle="dropdown"
+			aria-label="Toggle theme (auto)">
+		<svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+		<span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+		<li>
+		<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+			<svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+			Light
+			<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+		</button>
+		</li>
+		<li>
+		<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+			<svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+			Dark
+			<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+		</button>
+		</li>
+		<li>
+		<button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+			<svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
+			Auto
+			<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+		</button>
+		</li>
+	</ul>
+	</div>
+
+	<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+		<symbol id="arrow-right-circle" viewBox="0 0 16 16">
+			<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+		</symbol>
+	</svg>
+	<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="home" viewBox="0 0 16 16">
+          <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"></path>
+        </symbol>
+		<symbol id="guide" viewBox="0 0 16 16">
+			<path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+			<path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+		</symbol>
+      </svg>
+	<!-- dark toogle and icons End -->
+
+	<!-- container -->
+	<div class="col-lg-10 mx-auto p-2 py-md-2">
+		<!-- header -->
+		<header>
+		<div class="px-3 py-3 border-bottom mb-4">
+			<div class="container-fluid">
+			<div class="d-flex flex-wrap align-items-end justify-content-center justify-content-lg-start">
+				<a href="./index.html" class="d-flex align-items-end my-2 my-lg-0 me-lg-auto text-decoration-none">
+					<img class="mx-3" src="./Assets/bookshelf.svg" alt="auto-distro logo" width="50" height="50">
+					<span class="fs-4 d-none d-lg-block text-dark-emphasis">Auto<span class="text-primary text-opacity-75">-</span>Distro App</span>
+				</a>
+
+				<ul class="nav col-12 col-lg-auto my-2 align-items-end justify-content-center my-md-0 text-small">
+				<li>
+					<a href="./index.html" class="nav-link text-secondary py-0">
+					<svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
+					Home
+					</a>
+				</li>
+				<li>
+					<a href="./Pages/guide.html" class="nav-link py-0">
+					<svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#guide"></use></svg>
+					Guia
+					</a>
+				</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		</header>
+		<!-- end -->
+
+		<main class="container">
+			<!-- forms -->
+			<div class="row g-5">
+				<!-- item form -->
+				<div class="col-md-6">
+					<h2 class="mb-3 fw-bold text-primary text-opacity-75 fs-5">Definindo os itens:</h2>
+					<form class="needs-validation" id="itemsForm" novalidate>
+						<div class="row gx-2">
+							<div id="repeatedItemAlert"></div>
+							<div class="col-sm-8">
+								<label for="itemName" class="form-label text-dark-emphasis fs-6">Nome do item para distribuir:</label>
+								<input type="text" class="form-control" id="itemName" placeholder="" value="" required>
+								<div class="invalid-feedback">
+									Um nome válido é necessário.
+								</div>
+							</div>
+			
+							<div class="col-sm-4">
+								<label for="itemColor" class="form-label text-dark-emphasis fs-6">Escolha uma cor:</label>
+								<select class="form-select text-dark-emphasis" id="itemColor" required>
+									<option value="">Veja as opções...</option>
+									<option>Sem Cor</option>
+									<option>Amarela</option>
+									<option>Azul</option>
+									<option>Bege</option>
+									<option>Branca</option>
+									<option>Cinza</option>
+									<option>Marrom</option>
+									<option>Ocre</option>
+									<option>Off-White</option>
+									<option>Preta</option>
+									<option>Rosa</option>
+									<option>Roxa</option>
+									<option>Verde</option>
+									<option>Vermelha</option>
+									<option>Vinho</option>
+								</select>
+								<div class="invalid-feedback">
+									Selecione uma cor ou a opção Sem Cor!
+								</div>
+							</div>
+						
+							<p class="mb-0 mt-4 text-dark-emphasis fs-6">Informe a quantidade por tamanho:</p>
+
+							<div class="col-4">
+								<label for="sizeP" class="form-label"></label>
+								<div class="input-group has-validation">
+									<span class="input-group-text text-dark-emphasis">P</span>
+									<input type="number" class="form-control text-start pl-2" id="sizeP" min="0" required>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+
+							<div class="col-4">
+								<label for="sizeM" class="form-label"></label>
+								<div class="input-group has-validation">
+									<span class="input-group-text text-dark-emphasis">M</span>
+									<input type="number" class="form-control text-start pl-2" id="sizeM" min="0" required>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+
+							<div class="col-4">
+								<label for="sizeG" class="form-label"></label>
+								<div class="input-group has-validation">
+									<span class="input-group-text text-dark-emphasis">G</span>
+									<input type="number" class="form-control text-start pl-2" id="sizeG" min="0" required>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+
+							<div class="col-4">
+								<label for="sizeGG" class="form-label"></label>
+								<div class="input-group has-validation">
+									<span class="input-group-text text-dark-emphasis">GG</span>
+									<input type="number" class="form-control text-start pl-2" id="sizeGG" min="0" required>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+
+							<div class="col-4">
+								<label for="sizeGGG" class="form-label"></label>
+								<div class="input-group has-validation">
+									<span class="input-group-text text-dark-emphasis">GGG</span>
+									<input type="number" class="form-control text-start pl-2" id="sizeGGG" min="0" required>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+										
+							<div class="col-6 mt-3">
+								<button class="w-100 btn btn-primary btn-lg" type="button" id="addItemButton">Adicionar item</button>
+							</div>
+
+							<!-- hidden live toast -->
+							<div class="toast-container position-fixed bottom-0 start-0 p-3">
+								<div id="addItemToast" class="toast" role="alert" data-bs-delay="2000" aria-live="assertive" aria-atomic="true">
+									<div class="toast-header">
+										<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#198754"></rect></svg>
+										<strong class="me-auto">Armazenado!</strong>
+										<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+									</div>
+									<div class="toast-body">
+										Item armazenado na lista.
+									</div>
+								</div>
+							</div>
+							<!-- end -->
+
+							<div class="col-6 mt-3">
+								<button class="w-100 btn btn-danger opacity-75 btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#clearItemsFormModal">Reset</button>
+							</div>
+						</div>                    
+					</form>
+				</div>
+				<!-- item form End -->
+
+				<!-- prateleira form -->
+				<div class="d-flex flex-column justify-content-between col-md-6">
+					<h2 class="mb-3 fw-bold text-primary text-opacity-75 fs-5">Definindo um modelo de prateleira:</h2>
+					<form class="needs-validation d-flex flex-grow-1" novalidate="" id="stockForm">
+						<div class="row gx-2">
+							<div class="col-sm-12">
+								<label for="stockFloors" class="form-label text-dark-emphasis">Número de Andares:</label>
+								<input type="number" class="form-control" id="stockFloors" min="0" required>
+								<div class="invalid-feedback">
+									Informe o número de andares na prateleira.
+								</div>
+							</div>
+							
+							<div class="col-sm-12">
+								<label for="floorLimit" class="form-label text-dark-emphasis">Quantos itens cabem por andar?</label>
+								<input type="number" class="form-control" id="floorLimit" min="0" required>
+								<div class="invalid-feedback">
+									Informe quantos itens cabem por andar.
+								</div>
+							</div>
+							
+							<div class="mt-3" id="readyStockModelAlert"></div>
+							<div class="col-6 align-self-end">
+								<button class="w-100 btn btn-primary btn-lg" type="button" id="setStockModelButton">Definir</button>
+							</div>
+
+							<div class="col-6 align-self-end">
+								<button class="w-100 btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#resetStockModal" id="resetStockModelButton">Redefinir</button>
+							</div>
+						</div>
+					</form>
+				</div>				
+				<!-- prateleira form End -->
+			</div>
+			<!-- forms End -->
+
+			<!-- accordion e prateleiras -->
+			<div class="row g-5 mt-3">
+				<!-- accordion -->
+				<div class="col-md-6 d-none" id="itemsListContainer">
+					<h2 class="text-dark-emphasis mb-3">Itens para distribuir</h2>
+					<div class="accordion" id="containerAccordionItems"></div>
+					<div class="mt-3" id="noStockAlert"></div>
+					<button class="mt-3 w-100 btn btn-primary btn-lg" type="button" id="generateFinalStock">Distribuir Itens</button>
+				</div>
+				<!-- end -->
+				
+				<!-- prateleiras -->
+				<div class="col-md-6 d-none" id="finalStockContainer">
+					<h2 class="text-dark-emphasis mb-3">Distribuição Final</h2>
+					<div class="accordion" id="containerFinalStock">
+						<!-- compontent via js -->
+					</div>
+					<button class="mt-3 w-100 btn btn-primary btn-lg" type="button" id="generateFinalStock">Salvar</button>
+				</div>
+				<!-- end -->
+			</div>
+			<!-- end -->
+		</main>
+
+		<footer class="pt-5 my-5 text-body-secondary">
+		Created by the lucas-picinini developer &middot; &copy; 2024
+		</footer>
+	</div>
+	<script src="./Bootstrap/bootstrap.bundle.min.js"></script>
+	<script type="module" src="./App/index.js"></script>
+  </body>
+</html>

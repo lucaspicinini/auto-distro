@@ -1,0 +1,278 @@
+<html lang="pt-br" data-bs-theme="light">
+<head>
+    <script src="../Bootstrap/color-modes.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Auto-Distro App</title>
+    <link href="../Bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../Assets/bookshelf.svg" type="image/x-icon">
+
+    <!-- dark toogle button -->
+    <style>
+        .bd-placeholder-img {
+              font-size: 1.125rem;
+              text-anchor: middle;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              user-select: none;
+          }
+  
+          @media (min-width: 768px) {
+              .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+              }
+          }
+  
+          .b-example-divider {
+              width: 100%;
+              height: 3rem;
+              background-color: rgba(0, 0, 0, .1);
+              border: solid rgba(0, 0, 0, .15);
+              border-width: 1px 0;
+              box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+          }
+  
+          .b-example-vr {
+              flex-shrink: 0;
+              width: 1.5rem;
+              height: 100vh;
+          }
+  
+          .bi {
+              vertical-align: -.125em;
+              fill: currentColor;
+          }
+  
+          .nav-scroller {
+              position: relative;
+              z-index: 2;
+              height: 2.75rem;
+              overflow-y: hidden;
+          }
+  
+          .nav-scroller .nav {
+              display: flex;
+              flex-wrap: nowrap;
+              padding-bottom: 1rem;
+              margin-top: -1px;
+              overflow-x: auto;
+              text-align: center;
+              white-space: nowrap;
+              -webkit-overflow-scrolling: touch;
+          }
+  
+          .btn-bd-primary {
+              --bd-violet-bg: #0d6efd;
+              --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+              --bs-btn-font-weight: 600;
+              --bs-btn-color: var(--bs-white);
+              --bs-btn-bg: var(--bd-violet-bg);
+              --bs-btn-border-color: var(--bd-violet-bg);
+              --bs-btn-hover-color: var(--bs-white);
+              --bs-btn-hover-bg: #0b5ed7;
+              --bs-btn-hover-border-color: #0b5ed7;
+              --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+              --bs-btn-active-color: var(--bs-btn-hover-color);
+              --bs-btn-active-bg: #0a58ca;
+              --bs-btn-active-border-color: #0a58ca;
+          }
+  
+          .bd-mode-toggle {
+              z-index: 1500;
+          }
+  
+          .bd-mode-toggle .dropdown-menu .active .bi {
+              display: block !important;
+          }
+        </style>
+    <!-- dark toogle button End -->
+</head>
+
+<body cz-shortcut-listen="true">
+  <!-- dark toogle and icons -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 16 16">
+          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+          <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path>
+          <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+          <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+      </symbol>
+  </svg>
+
+  <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+  <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (light)">
+      <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+      <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+      <li>
+      <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light" aria-pressed="true">
+          <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+          Light
+          <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+      </button>
+      </li>
+      <li>
+      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+          <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+          Dark
+          <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+      </button>
+      </li>
+      <li>
+      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+          <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
+          Auto
+          <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+      </button>
+      </li>
+  </ul>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="arrow-right-circle" viewBox="0 0 16 16">
+          <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"></path>
+      </symbol>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"></path>
+      </symbol>
+      <symbol id="cpu-fill" viewBox="0 0 16 16">
+        <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
+        <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"></path>
+      </symbol>
+      <symbol id="toggles2" viewBox="0 0 16 16">
+        <path d="M9.465 10H12a2 2 0 1 1 0 4H9.465c.34-.588.535-1.271.535-2 0-.729-.195-1.412-.535-2z"></path>
+        <path d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm.535-10a3.975 3.975 0 0 1-.409-1H4a1 1 0 0 1 0-2h2.126c.091-.355.23-.69.41-1H4a2 2 0 1 0 0 4h2.535z"></path>
+        <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
+      </symbol>
+      <symbol id="stock" viewBox="0 0 16 16">
+        <path d="M2.5 0a.5.5 0 0 1 .5.5V2h10V.5a.5.5 0 0 1 1 0v15a.5.5 0 0 1-1 0V15H3v.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5M3 14h10v-3H3zm0-4h10V7H3zm0-4h10V3H3z"/>
+      </symbol>
+      <symbol id="time" viewBox="0 0 16 16">
+        <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"/>
+        <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"/>
+        <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"/>
+      </symbol>
+      <symbol id="guide" viewBox="0 0 16 16">
+        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+        <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+      </symbol>
+  </svg>
+  <!-- dark toogle and icons End -->
+
+  <!-- container -->
+    <div class="container col-lg-10 mx-auto p-2 py-md-2">
+        <!-- header -->
+        <header>
+        <div class="px-3 py-3 border-bottom mb-4">
+            <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-end justify-content-center justify-content-lg-start">
+                <a href="./guide.html" class="d-flex align-items-end my-2 my-lg-0 me-lg-auto text-decoration-none">
+                    <span class="fs-1 text-dark-emphasis">Guia</span>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto my-2 align-items-end justify-content-center my-md-0 text-small">
+                <li>
+                    <a href="../index.html" class="nav-link text-secondary py-0">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
+                    Home
+                    </a>
+                </li>
+                <li>
+                    <a href="./guide.html" class="nav-link py-0">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#guide"></use></svg>
+                    Guia
+                    </a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </header>
+        <!-- end -->
+        <main>
+            <div class="container px-4 py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="../Assets/bookshelf.svg" alt="auto-distro logo" width="120" height="120">
+                <h1 class="display-5 fw-bold text-dark-emphasis">Auto<span class="text-primary text-opacity-75">-</span>Distro App</h1>
+                <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">Distribua itens em prateleiras de maneira rápida e eficaz. Nosso tempo é o que há de mais importante, vamos usá-lo com coisas que realmente importam!</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <a href="#usageSection"><button type="button" class="btn btn-primary btn-lg px-4 gap-3">Como usar</button></a>
+                        <a href="#features"><button type="button" class="btn btn-outline-secondary btn-lg px-4">O que vem por aí</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container px-4 py-5" id="usageSection">
+                <h2 class="pb-2 border-bottom fw-bold text-primary text-opacity-75">Como usar</h2>
+                <div class="row row-cols-1 row-cols-md-2 align-items-md-start g-5 py-5">
+                    <div class="col d-flex flex-column align-items-start gap-2">
+                        <h2 class="fw-bold text-dark-emphasis"><span class="fw-bold text-primary text-opacity-75">1</span> - Escolha seus itens</h2>
+                        <p class="text-body-secondary">No formulário de itens, defina as características e quantidades de cada peça que será organizada. Para itens que não possuem variável de tamanho, você pode usar apenas o P e preecher os outros tamnhos com 0.</p>
+                        <h2 class="fw-bold text-dark-emphasis"><span class="fw-bold text-primary text-opacity-75">2</span> - Selecione um modelo de prateleira</h2>
+                        <p class="text-body-secondary">Basta informar a quantidade de andares por unidade e quantos itens cabem por andar.</p>
+                    </div>
+
+                    <div class="col d-flex flex-column align-items-start gap-2">
+                        <h2 class="fw-bold text-dark-emphasis"><span class="fw-bold text-primary text-opacity-75">3</span> - Acione o botão de distribuição</h2>
+                        <p class="text-body-secondary">Após definir o modelo de prateleira e adicionar os itens que serão organizados na lista, clique no botão de distribuição. Em seguida, a organização para seu estoque final será exibida na tela de maneira detalhada. Será possível verificar quantas prateleiras serão necessárias, quais itens ficarão em cada andar, a ordem e suas respectivas quantidades.</p>
+                        <h2 class="fw-bold text-dark-emphasis"><span class="fw-bold text-primary text-opacity-75">4</span> - Salve seu planejamento</h2>
+                        <p class="text-body-secondary">Abaixo do planejamento de organização exibido na tela, você poderá salvar os dados gerados para consultar depois.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container px-4 py-5" id="features">
+                <h2 class="pb-2 border-bottom fw-bold text-primary text-opacity-75">Próximas versões</h2>
+            
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+                <div class="col d-flex align-items-start">
+                    <svg class="bi text-primary text-opacity-75 flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"></use></svg>
+                    <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-dark-emphasis">App Core</h3>
+                    <p>Chegada de novos algoritmos de distribuição, permitindo outros tipos de organização.</p>
+                    </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <svg class="bi text-primary text-opacity-75 flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"></use></svg>
+                    <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-dark-emphasis">Item Personalizado</h3>
+                    <p>Em breve será possível definir as variáveis mais adequadas para o seu item.</p>
+                    </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <svg class="bi text-primary text-opacity-75 flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#stock"></use></svg>
+                    <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-dark-emphasis">Novos Tipo de Estoque</h3>
+                    <p>Por caixas, por cabides em araras de roupas, por potes em dispenas e muito mais.</p>
+                    </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <svg class="bi text-primary text-opacity-75 flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#time"></use></svg>
+                    <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-dark-emphasis">Tempo</h3>
+                    <p>Saiba qual o tempo estimado para executar cada planejamento gerado.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="pt-5 my-5 text-body-secondary">
+        Created by the lucas-picinini developer · © 2024
+        </footer>
+    </div>
+    <script src="../Bootstrap/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../App/index.js"></script>
+</body>
+</html>
